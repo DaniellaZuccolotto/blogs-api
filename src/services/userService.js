@@ -33,4 +33,15 @@ const getAll = async () => {
   return responseService;
 };
 
-module.exports = { userService, getAll };
+const getById = async (id) => {
+  const responseService = await User.findOne({
+    where: { id },
+    attributes: { exclude: ['password'] },
+  });
+  if (!responseService) {
+    return { status: 404, message: 'User does not exist' };
+  }
+  return responseService;
+};
+
+module.exports = { userService, getAll, getById };

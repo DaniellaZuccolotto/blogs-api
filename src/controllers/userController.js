@@ -19,4 +19,14 @@ async function getAll(req, res) {
     return res.status(200).json(responseService);
 }
 
-module.exports = { createUser, getAll };
+async function getById(req, res) {
+  const { id } = req.params;
+  const responseService = await userService.getById(id);
+  if (responseService.message) {
+    const { status, message } = responseService;
+    return res.status(status).json({ message });
+  }
+  return res.status(200).json(responseService.dataValues);
+}
+
+module.exports = { createUser, getAll, getById };
