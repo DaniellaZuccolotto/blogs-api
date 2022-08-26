@@ -14,6 +14,7 @@ app.get('/user', auth, userController.getAll);
 app.get('/user/:id', auth, userController.getById);
 
 app.post('/categories', auth, categoryController.createCategory);
+app.get('/categories', auth, categoryController.getAll);
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
