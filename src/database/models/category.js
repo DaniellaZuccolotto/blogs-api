@@ -7,10 +7,5 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  // Category.associate = (models) => {
-  //   Category.hasMany(models.BlogPost,
-  //     { foreignKey: 'CategoryId', as: 'blogposts' });
-  // };
-
   return Category;
 };

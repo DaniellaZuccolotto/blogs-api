@@ -1,4 +1,4 @@
-const { BlogPost, Category, PostCategory, sequelize } = require('../database/models');
+const { BlogPost, Category, PostCategory, sequelize, User } = require('../database/models');
 
 const validationCategoy = async (categories) => {
   if (!categories) return { status: 400, message: '"categoryIds" not found' };
@@ -28,4 +28,14 @@ const createPost = async (id, title, content, categories) => {
   return sequelizeTrans;
 };
 
-module.exports = { createPost };
+const getAll = async () => {
+  const responseService = await BlogPost.findAll({
+    include: [
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+  });
+  return responseService;
+};
+
+module.exports = { createPost, getAll };
