@@ -9,6 +9,7 @@ module.exports = {
         },
         onDelete: 'CASCADE',
         primaryKey: true,
+        foreignKey: true,
       },
       categoryId: {
         type: Sequelize.INTEGER,
@@ -18,6 +19,7 @@ module.exports = {
         },
         onDelete: 'CASCADE',
         primaryKey: true,
+        foreignKey: true
       },
     });
   },

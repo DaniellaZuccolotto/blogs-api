@@ -12,7 +12,6 @@ const validate = async (displayName, email, password) => {
     return { status: 400, message: '"password" length must be at least 6 characters long' };
   }
   const responseUser = await User.findOne({ where: { email } });
-  console.log(responseUser, 'user');
   if (responseUser) {
     return { status: 409, message: 'User already registered' };
   }

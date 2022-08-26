@@ -10,7 +10,8 @@ async function createUser(req, res) {
       return res.status(status).json({ message });
     }
     const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };
-    const token = jwt.sign({ data: req.body.email }, JWT_SECRET, jwtConfig); 
+    const { email } = req.body;
+    const token = jwt.sign({ email }, JWT_SECRET, jwtConfig); 
     return res.status(201).json({ token });
 }
 
