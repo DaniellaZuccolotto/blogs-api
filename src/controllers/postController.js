@@ -52,10 +52,6 @@ async function deletePost(req, res) {
 async function search(req, res) {
   const { q } = req.query;
   const responseService = await postService.search(q);
-  if (responseService.message) {
-    const { status, message } = responseService;
-    return res.status(status).json({ message });
-  }
   return res.status(200).json(responseService);
 }
 

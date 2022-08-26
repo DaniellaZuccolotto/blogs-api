@@ -104,7 +104,6 @@ const search = async (q) => {
       { model: Category, as: 'categories', through: { attributes: [] } },
   ],
   });
-  console.log(responseService);
   return responseService;
 };
 
