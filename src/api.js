@@ -20,9 +20,11 @@ app.get('/categories', auth, categoryController.getAll);
 
 app.post('/post', auth, postController.createPost);
 app.get('/post', auth, postController.getAll);
+app.get('/post/search', auth, postController.search);
 app.get('/post/:id', auth, postController.getById);
 app.put('/post/:id', auth, postController.updatePost);
 app.delete('/post/:id', auth, postController.deletePost);
+
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;

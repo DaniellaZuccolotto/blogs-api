@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, Category, PostCategory, sequelize, User } = require('../database/models');
 
 const validationCategoy = async (categories) => {
@@ -86,4 +87,25 @@ const deletePost = async (id, userId) => {
   return { };
 };
 
-module.exports = { createPost, getAll, getById, updatePost, deletePost };
+const search = async (q) => {
+  if (!q || q === '') {
+    return BlogPost.findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+    }); 
+  }
+  const responseService = await BlogPost.findAll({
+    where: {
+      [Op.or]: [{ title: q }, { content: q }],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+  });
+  console.log(responseService);
+  return responseService;
+};
+
+module.exports = { createPost, getAll, getById, updatePost, deletePost, search };
