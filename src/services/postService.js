@@ -38,6 +38,13 @@ const getAll = async () => {
   return responseService;
 };
 
+const validation = (title, content) => {
+  if (!title || !content) {
+    return { status: 400, message: 'Some required fields are missing' };
+  }
+  return true;
+};
+
 const getById = async (id) => {
   const responseService = await BlogPost.findOne({
     where: { id },
@@ -52,4 +59,21 @@ const getById = async (id) => {
   return responseService;
 };
 
-module.exports = { createPost, getAll, getById };
+const updatePost = async (id, title, content, userId) => {
+  const validationResponse = validation(title, content);
+  if (validationResponse !== true) return validationResponse;
+  const findPost = await BlogPost.findOne({ where: { id } });
+  if (!findPost) {
+    return { status: 404, message: 'Post does not exist' };
+  }
+  if (findPost.userId !== userId) return { status: 401, message: 'Unauthorized user' };
+  await BlogPost.update({ title, content }, { where: { id } });
+  const responseService = await BlogPost.findOne({ where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+  ] });
+  return responseService;
+};
+
+module.exports = { createPost, getAll, getById, updatePost };

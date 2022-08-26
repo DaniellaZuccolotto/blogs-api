@@ -29,4 +29,15 @@ async function getById(req, res) {
   return res.status(200).json(responseService.dataValues);
 }
 
-module.exports = { createPost, getAll, getById };
+async function updatePost(req, res) {
+  const { title, content } = req.body;
+  const { id: userId } = req.user;
+  const responseService = await postService.updatePost(req.params.id, title, content, userId);
+  if (responseService.message) {
+    const { status, message } = responseService;
+    return res.status(status).json({ message });
+  }
+  return res.status(200).json(responseService);
+}
+
+module.exports = { createPost, getAll, getById, updatePost };
