@@ -13,6 +13,7 @@ app.post('/login', loginController.Login);
 app.post('/user', userController.createUser);
 app.get('/user', auth, userController.getAll);
 app.get('/user/:id', auth, userController.getById);
+app.delete('/user/me', auth, userController.deleteUser);
 
 app.post('/categories', auth, categoryController.createCategory);
 app.get('/categories', auth, categoryController.getAll);

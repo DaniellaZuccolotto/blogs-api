@@ -30,4 +30,9 @@ async function getById(req, res) {
   return res.status(200).json(responseService.dataValues);
 }
 
-module.exports = { createUser, getAll, getById };
+async function deleteUser(req, res) {
+  await userService.deleteUser(req.user.id);
+  return res.status(204).end();
+}
+
+module.exports = { createUser, getAll, getById, deleteUser };
