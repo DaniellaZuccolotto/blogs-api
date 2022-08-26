@@ -38,4 +38,18 @@ const getAll = async () => {
   return responseService;
 };
 
-module.exports = { createPost, getAll };
+const getById = async (id) => {
+  const responseService = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (!responseService) {
+    return { status: 404, message: 'Post does not exist' };
+  }
+  return responseService;
+};
+
+module.exports = { createPost, getAll, getById };
