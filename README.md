@@ -11,13 +11,14 @@ Consiste em uma API de um banco de dados para produção de conteúdo para um bl
 
 - Para rodar o repositório localmente, realize o clone do projeto e utilize os comandos a seguir para inicializar o Docker, instalar as dependências e configurar o banco de dados:
 
-
+```
 npm run prestart // para criar o banco de dados e as migrações
 npm run seed // para popular o banco de dados
 docker-compose up -d --build
 docker attach store_manager
 npm install // para instalar as dependências
 docker-compose down // para parar completamente a aplicação
+```
 
 
 E utilize os comandos a seguir para executar a aplicação:
